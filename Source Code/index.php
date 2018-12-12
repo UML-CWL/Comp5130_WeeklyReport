@@ -94,12 +94,12 @@ function make_slides($link)
   $itemlink = "detail.php?id=".$row["id"];
   $output .= '
    <img src="pics/'.$row["pic"].'" alt="'.$row["name"].'" style="max-height:350px; min-height:350px;"/>
-   <div class="carousel-caption" style="background: rgba(0%,10%,20%,0.2);-webkit-border-radius: 20px;-moz-border-radius: 20px;border-radius: 20px;">
-    <h3><a href='.$itemlink.' style="color:#669966;">'.$row["name"].'</a></h3>
+   <div class="carousel-caption" style="background: rgba(0%,10%,20%,0.4);-webkit-border-radius: 20px;-moz-border-radius: 20px;border-radius: 20px;">
+    <h3><b><a href='.$itemlink.' style="color:white;">'.$row["name"].'</a></b></h3>
    </div>
   </div>
   ';
-  $count = $count + 1;
+  $count = $count + 1;//#99CC00
  }
  return $output;
 }

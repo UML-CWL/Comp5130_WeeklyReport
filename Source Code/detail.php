@@ -48,9 +48,11 @@ require("navbar.php");
   $sellerresult = mysqli_query($link, $seller);
   $seller_row = mysqli_fetch_array($sellerresult);
 
-  $buyer = "SELECT * FROM account WHERE username = '".$_SESSION['loginUser']."'";
-  $buyerresult = mysqli_query($link, $buyer);
-  $buyer_row = mysqli_fetch_array($buyerresult);
+  if(isset($_SESSION['loginUser'])){
+    $buyer = "SELECT * FROM account WHERE username = '".$_SESSION['loginUser']."'";
+    $buyerresult = mysqli_query($link, $buyer);
+    $buyer_row = mysqli_fetch_array($buyerresult);
+  }
 ?>
 <br/>
 <br/>
@@ -74,15 +76,15 @@ require("navbar.php");
         <div class="sellerarea">
           <p style=" font-size:20px;">Seller: <?php echo $product_row["seller"]; ?>
           <input type = "hidden" name="seller" id="seller" value ="<?php echo $product_row["seller"]; ?>">
-          <input type = "hidden" name="acc" id="acc" value ="<?php echo $_SESSION['loginUser']; ?>">
           <input type = "hidden" name="product_name" id="product_name" value ="<?php echo $product_row["name"]; ?>">
           <input type = "hidden" name="product_id" id="product_id" value ="<?php echo $id; ?>">        
-          <?php if($_SESSION['loginUser']){ ?>
+          <?php if(isset($_SESSION['loginUser'])){ ?>
             <button type="button" id="sellermsgbtn" class="btn btn-primary btn-xs" data-toggle="modal">Message</button></p>
             <?php if($product_row["issold"] != 1){ ?>
             <form class="form-inline">
               <button type="button" class="offerbtn" id="offerbtn" data-toggle="modal">Make Offer</button>
               <button type="button" class="buybtn" id="buybtn" data-toggle="modal">Buy</button>
+              <input type = "hidden" name="acc" id="acc" value ="<?php echo $_SESSION['loginUser']; ?>">
            </form>
             <?php }else{?>
               <label>This product has been sold out.</label> 

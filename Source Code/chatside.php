@@ -11,12 +11,28 @@
 <body>
 
 <?php 
+  //require("config.php");
   $sndlist=$_SESSION['loginUser'];
-  $temp_sql = "CREATE TEMPORARY TABLE IF NOT EXISTS `chatlist` (`ChatName` varchar(20) NOT NULL,`time` timestamp NOT NULL)";
-  $temp_query = mysqli_query($link, $temp_sql);
-  $chatlist_all = "INSERT INTO chatlist (ChatName,time) SELECT A.sender AS ChatName, A.time FROM chat A  INNER JOIN chat B ON A.receiver = B.sender AND B.sender = '".$sndlist."' UNION SELECT A.receiver AS ChatName, A.time FROM chat A INNER JOIN chat B ON A.sender = B.receiver AND B.receiver = '".$sndlist."' ORDER  BY time DESC";
-  $chatlist_all_query = mysqli_query($link, $chatlist_all);
-  $chatlist = "SELECT DISTINCT ChatName FROM chatlist";
+
+  $senderside = "SELECT receiver FROM chat WHERE sender='".$sndlist."'";
+  $ss_query = mysqli_query($link, $senderside);
+  $sscount = mysqli_num_rows($ss_query);
+
+  $rcvside = "SELECT sender FROM chat WHERE receiver='".$sndlist."'";
+  $rcv_query = mysqli_query($link, $rcvside);
+  $rcvcount = mysqli_num_rows($rcv_query);
+
+  if($sscount > 0 && $rcvcount > 0){
+    $temp_sql = "CREATE TEMPORARY TABLE IF NOT EXISTS `chatlist` (`ChatName` varchar(20) NOT NULL,`time` timestamp NOT NULL)";
+    $temp_query = mysqli_query($link, $temp_sql);
+    $chatlist_all = "INSERT INTO chatlist (ChatName,time) SELECT A.sender AS ChatName, A.time FROM chat A  INNER JOIN chat B ON A.receiver = B.sender AND B.sender = '".$sndlist."' UNION SELECT A.receiver AS ChatName, A.time FROM chat A INNER JOIN chat B ON A.sender = B.receiver AND B.receiver = '".$sndlist."' ORDER  BY time DESC";
+    $chatlist_all_query = mysqli_query($link, $chatlist_all);
+    $chatlist = "SELECT DISTINCT ChatName FROM chatlist";
+  }else if($sscount > 0 ){
+    $chatlist = "SELECT DISTINCT receiver as ChatName FROM chat WHERE sender = '".$sndlist."' ORDER  BY time DESC";
+  }else{
+    $chatlist = "SELECT DISTINCT sender as ChatName FROM chat WHERE receiver = '".$sndlist."' ORDER  BY time DESC";
+  }
   $chatlist_query = mysqli_query($link, $chatlist);
   $chatls_rows = array();
   while($chatls_row = mysqli_fetch_array($chatlist_query)) $chatls_rows[] = $chatls_row;
