@@ -51,8 +51,8 @@ CREATE TABLE `account` (
 INSERT INTO `account` (`id`, `username`, `password`, `fname`, `mname`, `lname`, `email`, `phone`, `addr`, `city`, `state`, `zip`, `time`) VALUES
 (1, 'preownseller', 'd7d8d92d0972ad764c72a6a7953bb31d', '', '', '', '', '', '', '', '', '', '2018-12-10 02:20:54'),
 (2, 'preownbuyer', 'fef97dbbb536cc760eab5afa11ed6610', 'preown', '', 'buyer', 'pre@own.buyer', '0000000000', 'somewhere', 'earth', 'MA', '01853', '2018-12-10 02:52:10'),
-(3, 'alex', '225314c1822cb04b0d0e102c03947efa', 'alex', '', 'alex', 'aelx@alex.com', '1111111111', 'University Ave', 'Lowell', 'MA', '01854', '2018-12-10 02:52:33'),
-(4, 'david', '225314c1822cb04b0d0e102c03947efa', '', '', '', '', '', '', '', '', '', '2018-12-10 02:52:55');
+(3, 'alex', 'e10adc3949ba59abbe56e057f20f883e', 'alex', '', 'alex', 'aelx@alex.com', '1111111111', 'University Ave', 'Lowell', 'MA', '01854', '2018-12-10 02:52:33'),
+(4, 'david', 'e10adc3949ba59abbe56e057f20f883e', '', '', '', '', '', '', '', '', '', '2018-12-10 02:52:55');
 
 -- --------------------------------------------------------
 
